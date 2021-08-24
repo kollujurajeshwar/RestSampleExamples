@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.howtodoinjava</groupId>
 	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -39,4 +39,35 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	
+	
+	<build>
+		<finalName>Emp</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.10</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<repository>rcharyk/${project.name}</repository>
+					<tag>${project.version}</tag>
+					<skipDockerInfo>true</skipDockerInfo>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>

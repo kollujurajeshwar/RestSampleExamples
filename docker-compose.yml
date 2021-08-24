@@ -1,0 +1,38 @@
+version: '3.7'
+services:
+  Emp: 
+    image: rcharyk/demo:0.0.3-SNAPSHOT
+    #build:
+      #context: .
+      #dockerfile: Dockerfile
+    ports:
+      - "7071:7071"
+    restart: always
+    depends_on: # Start the depends_on first
+      - mysql-docker-container 
+    networks:
+      - todo-web-application-network
+
+  mysql-docker-container:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    container_name: kamienica-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+     # MYSQL_ROOT_PASSWORD: dummypassword 
+      #MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: rajschema
+    volumes:
+      - mysql-database-data-volume:/var/lib/mysql
+    networks:
+      - todo-web-application-network  
+  
+# Volumes
+volumes:
+  mysql-database-data-volume:
+
+networks:
+  todo-web-application-network:
